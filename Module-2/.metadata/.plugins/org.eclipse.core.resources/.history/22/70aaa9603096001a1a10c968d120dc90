@@ -1,0 +1,40 @@
+	String[][]<Word> wordList = new ArrayList<Word>(); 
+		for(String text : par) {
+			Word temp = new Word(text, 1);
+			wordList.add(temp);
+		}// end for
+		
+		System.out.println("Creating wordList...");
+		System.out.println(wordList);
+		
+		
+		List<Word> finalCount = new ArrayList<Word>(); 
+		//Looking for duplicates
+		System.out.println("\nPopulating final count...");
+		for(int i = 0; i < wordList.size(); i++) {
+			System.out.println("i = " + i);
+
+			
+			
+		
+			for(int j = 0; j < finalCount.size(); j++) {
+				System.out.println("j = " + j);
+				if(isDuplicate(finalCount.get(j), wordList.get(i)) == true) {
+					int newCount = finalCount.get(j).getCount() + 1;
+					finalCount.get(j).setCount(newCount);
+					System.out.println(finalCount.get(j).getText() + " +1");
+					j = finalCount.size();
+				}	
+				if(isDuplicate(finalCount.get(j), wordList.get(i)) == false){
+					finalCount.add(wordList.get(i));
+					System.out.println("Added " + finalCount.get(j).getText());
+					j = finalCount.size();
+				}
+			} //end inner for
+		
+			if(i == 0) {
+				finalCount.add(wordList.get(i));
+				System.out.println("i = " + i + ", Added " + finalCount.get(0) + " to finalCount");
+			}	
+		
+			
