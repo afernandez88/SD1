@@ -24,8 +24,6 @@ public class Main {
 		for(Word w: sortedList)
 			System.out.println(w);
 		
-		System.out.println("Uploaded");
-		
 
 
 		//Sort List
