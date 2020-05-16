@@ -1,0 +1,26 @@
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.util.*;
+import java.io.*;
+import java.nio.charset.*;
+
+public class Main {
+
+	public static void main(String[] args) {
+
+		//Input
+		Scanner scanner = new Scanner( new File("Poem.txt"), "UTF-8" );
+		
+		String text = scanner.useDelimiter("\\A").next();
+		scanner.close(); // Put this call in a finally block
+
+		//Process
+		ArrayList<Word> sortedList = Methods.getTopWordList(text);
+
+		
+		//Output
+		Methods.printList(sortedList);
+
+	} // end main()
+
+} // end Main
