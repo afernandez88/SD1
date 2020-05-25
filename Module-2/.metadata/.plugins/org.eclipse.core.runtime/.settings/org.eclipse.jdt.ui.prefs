@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 content_assist_completion_replacement_background=200,200,0
 content_assist_completion_replacement_foreground=200,0,0
 content_assist_number_of_computers=18
@@ -84,3 +85,11 @@ sourceHoverBackgroundColor=68,68,68
 spelling_locale_initialized=true
 useAnnotationsPrefPage=true
 useQuickDiffPrefPage=true
+=======
+content_assist_number_of_computers=18
+eclipse.preferences.version=1
+org.eclipse.jdt.ui.formatterprofiles.version=18
+spelling_locale_initialized=true
+useAnnotationsPrefPage=true
+useQuickDiffPrefPage=true
+>>>>>>> Stashed changes
