@@ -1,0 +1,25 @@
+import java.util.*;
+
+public class Main {
+
+	public static void main(String[] args) {	
+		
+		
+		String p = "";
+
+		ArrayList<Word> sortedList = Methods.getTopWordList(p);
+		
+		
+		
+		System.out.println("Uploaded");
+		
+
+
+		//Sort List
+		
+		//Print Top 20
+
+	} //end main()
+	
+
+} //end TestClass

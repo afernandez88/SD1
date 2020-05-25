@@ -1,38 +1,24 @@
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.*;
+import java.io.*;
+import java.nio.charset.*;
 
 public class Main {
 
-	public static void main(String[] args) {	
-		
-		
-		String p = "Once upon a midnight dreary, while I pondered, weak and weary,\n" + 
-				"Over many a quaint and curious volume of forgotten lore—\n" + 
-				"While I nodded, nearly napping, suddenly there came a tapping,\n" + 
-				"As of some one gently rapping, rapping at my chamber door.\n" + 
-				"\"'Tis some visitor,\" I muttered, \"tapping at my chamber door—\n" + 
-				"Only this and nothing more.\"\n";
+	public static void main(String[] args) {
 
-		ArrayList<Word> sortedList = Methods.getTopWordList(p);
+		//Input
+		String s = ReadFile.openFile();
+		System.out.println(s);
 		
-		System.out.println("\nTop 20...");
-		for(int i =0; i < 20; i++) {
-			int temp = i+1;
-			System.out.println(temp + ". " + sortedList.get(i));
-		}
-	
-		System.out.println("\nEntire List...");
-		for(Word w: sortedList)
-			System.out.println(w);
+		//Process
+		ArrayList<Word> sortedList = Methods.getTopWordList(s);
+
 		
-		System.out.println("Uploaded");
-		
+		//Output
+		Methods.printList(sortedList);
 
+	} // end main()
 
-		//Sort List
-		
-		//Print Top 20
-
-	} //end main()
-	
-
-} //end TestClass
+} // end Main

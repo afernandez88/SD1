@@ -1,0 +1,24 @@
+import java.io.File;
+import java.util.*;
+
+public class ReadFile {
+	private Scanner x;
+
+	public void openFile() {
+		try {
+			Scanner x = new Scanner(new File("Poem.txt"));
+		} catch (Exception e) {
+			System.out.println("FILE NOT FOUND!");
+		}
+	} // end openFile()
+	
+	public String[] toArray() {
+		String[] result = new String[1000];
+		while(x.hasNext()) {
+			
+		}
+		
+		return result;
+	}
+
+}// end ReadFile

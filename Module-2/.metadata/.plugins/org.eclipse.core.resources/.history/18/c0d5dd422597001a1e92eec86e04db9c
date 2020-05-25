@@ -1,0 +1,22 @@
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.util.*;
+
+public class Main {
+
+	public static void main(String[] args) {
+
+		//Input
+		String p = Files.readString("/Users/Andre/Documents/Repos/SD1/Module-2/WordCounter/Poem.txt", StandardCharsets.US_ASCII);
+;
+
+		//Process
+		ArrayList<Word> sortedList = Methods.getTopWordList(p);
+
+		
+		//Output
+		Methods.printList(sortedList);
+
+	} // end main()
+
+} // end Main

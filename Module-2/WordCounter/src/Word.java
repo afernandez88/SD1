@@ -4,7 +4,6 @@ public class Word implements Comparable<Word> {
 	// Fields ///////////////////////////////////////////////////////
 	String text;
 	int count;
-	
 
 	// Constructors /////////////////////////////////////////////////
 	public Word(String text, int count) {
@@ -12,16 +11,12 @@ public class Word implements Comparable<Word> {
 		this.count = count;
 	}
 
-	public Word() {
-		newWord();
-	}
-
-	
 	// Getters and Setters //////////////////////////////////////////
 	public String getText() {
 		return text;
 	}
 
+	//Sets the first letter of the word to upper-case
 	public void setText(String text) {
 		char fletter = Character.toUpperCase(text.charAt(0));
 		String result = fletter + text.substring(1);
@@ -35,7 +30,6 @@ public class Word implements Comparable<Word> {
 	public void setCount(int count) {
 		this.count = count;
 	}
-	
 
 	// toString /////////////////////////////////////////////////////
 	public String toString() {
@@ -50,43 +44,12 @@ public class Word implements Comparable<Word> {
 
 		return result;
 	}// end toString()
-	
 
 	// Methods //////////////////////////////////////////////////////
-	public void newWord() {
-		String temp = " ";
-		setText(temp);
-		setCount(0);
-	}// end newWord()
 
-	@Override
-	  public int compareTo(Word w) {
+	//Used to compare the count of two words
+	public int compareTo(Word w) {
 		return Integer.compare(this.getCount(), w.getCount());
-    } //end compareTo()
+	} // end compareTo()
 
-	
-}//end Word
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}// end Word

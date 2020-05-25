@@ -1,0 +1,33 @@
+import java.util.*;
+
+public class Main {
+
+	public static void main(String[] args) {	
+		
+		
+		String p = Poem.txt;
+
+		ArrayList<Word> sortedList = Methods.getTopWordList(p);
+		
+		System.out.println("\nTop 20...");
+		for(int i =0; i < 20; i++) {
+			int temp = i+1;
+			System.out.println(temp + ". " + sortedList.get(i));
+		}
+	
+		System.out.println("\nEntire List...");
+		for(Word w: sortedList)
+			System.out.println(w);
+		
+		System.out.println("Uploaded");
+		
+
+
+		//Sort List
+		
+		//Print Top 20
+
+	} //end main()
+	
+
+} //end TestClass
