@@ -1,22 +1,16 @@
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.util.*;
 import java.io.*;
-import java.nio.charset.*;
 
 public class Main {
 
-	public static void main(String[] args) {
-
-		//Input
-		String s = ReadFile.openFile();
-		System.out.println(s);
+	public static void main(String[] args) throws FileNotFoundException {
+		//Input - Converting poem to a string
+		String poem = Methods.getTextFromFile();
 		
-		//Process
-		ArrayList<Word> sortedList = Methods.getTopWordList(s);
+		//Process - Parsing the poem, and counting the words
+		ArrayList<Word> sortedList = Methods.getTopWordList(poem);
 
-		
-		//Output
+		//Output - Printing the top 20 words, and their count
 		Methods.printList(sortedList);
 
 	} // end main()

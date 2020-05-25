@@ -1,11 +1,11 @@
 
 public class Word implements Comparable<Word> {
 
-	// Fields ///////////////////////////////////////////////////////
+	// Fields 
 	String text;
 	int count;
 
-	// Constructors /////////////////////////////////////////////////
+	// Constructors 
 	public Word(String text, int count) {
 		setText(text);
 		this.count = count;
@@ -31,7 +31,8 @@ public class Word implements Comparable<Word> {
 		this.count = count;
 	}
 
-	// toString /////////////////////////////////////////////////////
+	// Methods //////////////////////////////////////////////////////
+
 	public String toString() {
 		String result = text;
 
@@ -45,10 +46,9 @@ public class Word implements Comparable<Word> {
 		return result;
 	}// end toString()
 
-	// Methods //////////////////////////////////////////////////////
 
-	//Used to compare the count of two words
 	public int compareTo(Word w) {
+	//Used to compare the count field of two words
 		return Integer.compare(this.getCount(), w.getCount());
 	} // end compareTo()
 

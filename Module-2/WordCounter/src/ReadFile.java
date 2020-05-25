@@ -6,7 +6,7 @@ public class ReadFile {
 
 	public static String openFile() {
 		try {
-			Scanner x = new Scanner(new File("../Poem.txt"));
+			Scanner x = new Scanner(new File("Poem.txt"));
 		} catch (Exception e) {
 			System.out.println("FILE NOT FOUND!");
 		}

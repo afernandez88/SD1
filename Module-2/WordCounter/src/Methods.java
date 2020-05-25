@@ -1,13 +1,31 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
 public class Methods {
 
-	//Takes the poem and returns a sorted ArrayList of all words with their counts
-	//all stored in Word(text,count) objects
+	public static String getTextFromFile() throws FileNotFoundException {
+	// Reads in the Poem.txt file from the project folder, and puts it into a string
+		String result = "";
+
+		File file = new File("Poem.txt");
+		Scanner scan = new Scanner(file);
+		while (scan.hasNextLine()) {
+			result += scan.next();
+			result += " ";
+		} // end while
+		
+		// System.out.println(result);
+		scan.close();
+		return result;
+	} // end getTextFromFile()
+	
+
 	public static ArrayList<Word> getTopWordList(String p) {
+	// Takes the poem and returns a sorted ArrayList of all words with their counts
+	// all stored in Word(text,count) objects
 
 		String[] temp = p.split("\\s+");
 
@@ -15,7 +33,7 @@ public class Methods {
 		for (int i = 0; i < temp.length; i++)
 			temp[i] = temp[i].replaceAll("[^\\w]", "").toLowerCase();
 
-		System.out.println("Total words found:" + temp.length + "\n");
+		System.out.println("Total words found: " + temp.length);
 
 		ArrayList<String> finalWords = new ArrayList<String>();
 		ArrayList<Integer> finalCounts = new ArrayList<Integer>();
@@ -47,12 +65,13 @@ public class Methods {
 	} // end getWordList()
 
 	
-	//Printing out the top 20 list, followed by the entire list
 	public static void printList(ArrayList<Word> list) {
+	// Printing out the top 20 list, followed by the entire list
+
 		System.out.println("\nTop 20...");
 		for (int i = 0; i < 20; i++) {
 			int temp = i + 1;
-			if(temp < 10)
+			if (temp < 10)
 				System.out.println(" " + temp + ". " + list.get(i));
 			else
 				System.out.println(temp + ". " + list.get(i));
@@ -62,24 +81,4 @@ public class Methods {
 			System.out.println(w);
 	} // end printList()
 
-
 } // end Methods
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
