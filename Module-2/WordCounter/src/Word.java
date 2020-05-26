@@ -16,8 +16,8 @@ public class Word implements Comparable<Word> {
 		return text;
 	}
 
-	//Sets the first letter of the word to upper-case
 	public void setText(String text) {
+	//Sets the first letter of the word to upper-case
 		char fletter = Character.toUpperCase(text.charAt(0));
 		String result = fletter + text.substring(1);
 		this.text = result;
@@ -45,8 +45,7 @@ public class Word implements Comparable<Word> {
 
 		return result;
 	}// end toString()
-
-
+	
 	public int compareTo(Word w) {
 	//Used to compare the count field of two words
 		return Integer.compare(this.getCount(), w.getCount());
