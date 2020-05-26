@@ -1,11 +1,11 @@
 
 public class Word implements Comparable<Word> {
 
-	// Fields 
+	// Fields ///////////////////////////////////////////////////////
 	String text;
 	int count;
 
-	// Constructors 
+	// Constructors /////////////////////////////////////////////////
 	public Word(String text, int count) {
 		setText(text);
 		this.count = count;
