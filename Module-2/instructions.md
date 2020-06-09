@@ -7,13 +7,9 @@ Learning Outcomes
 - Student will create software to solve basic business problems.
 
 Assignment Instructions
-1. Submit a screen shot of the top 20 words in the following file (a poem): https://www.gutenberg.org/files/1065/1065-h/1065-h.htm
+Submit a screen shot of the top 20 words in the following file (a poem): https://www.gutenberg.org/files/1065/1065-h/1065-h.htm
   
 Notes:
 - Ignore all HTML tags
 - Ignore all text before the poem's title
 - Ignore all text after the end of the poem
-  
-2. Submit text analyzer program to your GIT hub repository.
-3. Submit your GIT repository link.
-4. Submit your written plan for creating this solution.
