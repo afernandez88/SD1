@@ -21,7 +21,7 @@ public class Main extends Application {
 		 * Fibonacci sequence.
 		 * 
 		 * Each object will hold the next number in the series, along with the time that
-		 * it took to reach that number from the previous in nano seconds (ns).
+		 * it took to reach that number from the the start in nano seconds (ns).
 		 */
 
 		// Number of entries in the sequence
