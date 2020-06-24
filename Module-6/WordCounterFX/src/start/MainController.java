@@ -105,8 +105,13 @@ public class MainController {
         textColumnTop20.setCellValueFactory(new PropertyValueFactory<Word, String>("text"));
         countColumnTop20.setCellValueFactory(new PropertyValueFactory<Word, Integer>("count"));
         occurrenceViewTop20.setItems(observableListTop20);
+        String temp = "";
+        if(usingSample) {
+            temp += "Results for " + sampleFile.getName() + "\n\n";
+        } else temp += "Results for " + newFile.getName() + "\n\n";
+        temp += getStats(observableList);
 
-        stats.setText(getStats(observableList));
+        stats.setText(temp);
     } // countButtonAction()
 
     // Clears the loaded .txt, clears the TableViews, and disables the Count button
@@ -140,10 +145,6 @@ public class MainController {
     public static String getStats( ObservableList<Word> list){
         String result = "";
 
-        if(usingSample) {
-            result += "Results for " + sampleFile.getName() + "\n\n";
-        } else result += "Results for " + newFile.getName() + "\n\n";
-
         int wordCount = 0;
         int unique = list.size();
 
@@ -153,6 +154,7 @@ public class MainController {
         result += "Word Count: " + wordCount + "\n\n";
         result += "Unique Words: " + unique + "\n\n";
 
+        System.out.println(result);
         return result;
     } // end getStats
 

@@ -34,7 +34,7 @@ public class Methods {
 		for (int i = 0; i < temp.length; i++)
 			temp[i] = temp[i].replaceAll("[^\\w]", "").toLowerCase();
 
-		System.out.println("Total words found: " + temp.length);
+		//System.out.println("Total words found: " + temp.length + "\n");
 
 		ArrayList<String> finalWords = new ArrayList<String>();
 		ArrayList<Integer> finalCounts = new ArrayList<Integer>();
