@@ -28,7 +28,7 @@ public class Main {
             // Computing the sum of the array using a single thread
             Methods.singleTreadSum(nums);
             System.out.println("\n");
-        }
+        } // end for
 
     } // end main()
 
