@@ -29,7 +29,11 @@ import java.util.Scanner;
 public class MainController {
 
     public static String text;
-    ObservableList<Word> observableList = FXCollections.observableArrayList();
+
+    private static ObservableList<Word> observableList = FXCollections.observableArrayList();
+    private static ObservableList<TextFile> filesInDatabase = FXCollections.observableArrayList();
+
+    private static int selection;
     private static File sampleFile = new File("Poem.txt");
     private static File newFile;
     private static boolean usingSample = false;
@@ -37,15 +41,14 @@ public class MainController {
     ////////////////////////////////////////// FX id's
     // Menu bar
     @FXML
-    private MenuButton file;
+    private ComboBox choose;
     @FXML
-    private MenuItem openSample;
-    @FXML
-    private MenuItem openNew;
+    private Button openNew;
     @FXML
     private Button clear;
 
     // Vbox
+
     @FXML
     private Button count;
     @FXML
@@ -54,8 +57,6 @@ public class MainController {
     // Top 20 tab
     @FXML
     private TableView<Word> occurrenceViewTop20;
-    @FXML
-    private TableColumn<Word, Integer> posColumnTop20;
     @FXML
     private TableColumn<Word, String> textColumnTop20;
     @FXML
@@ -72,36 +73,17 @@ public class MainController {
     ////////////////////////////////////////// Controller Method's
 
     /**
-     * Loads the Poem.txt into the program
-     * @throws FileNotFoundException
+     * Initializes the MainController.
      */
-    public void loadSample() throws FileNotFoundException {
-        text = Methods.getTextFromFile(sampleFile);
-        System.out.println("[Methods.loadSample()] Loaded Poem.txt, ready to count!");
-        count.setDisable(false);
-        usingSample = true;
-        try {
-            Database.clearTable(Main.conn);
-        } catch (Exception e) {
-            System.out.println("[Main.main()] Could not flush word table.");
+    @FXML
+    private void initialize() {
+        //Pulls all text files from the database
+        choose.getItems().clear();
+        filesInDatabase = Database.readFiles(Main.conn);
+        for(int i = 0; i < filesInDatabase.size(); i++){
+            choose.getItems().add(filesInDatabase.get(i).getName());
         }
-    } // end loadSample()
-
-
-    /**
-     * Loads the .txt chosen by the user into the program
-     * @throws FileNotFoundException
-     */
-    public void loadNewFile() throws FileNotFoundException {
-        text = Methods.getTextFromFile(newFile);
-        System.out.println("[Methods.loadNewFile] Loaded "+ newFile.getName() +", ready to count!");
-        count.setDisable(false);
-        try {
-            Database.clearTable(Main.conn);
-        } catch (Exception e) {
-            System.out.println("[Main.main()] Could not flush word table.");
-        }
-    } // end loadNewFile()
+    } // end initialize()
 
 
     /**
@@ -110,7 +92,7 @@ public class MainController {
      */
     private void fillList() {
         observableList.clear();
-        observableList.addAll(Database.read(Main.conn));
+        observableList.addAll(Database.readWords(Main.conn));
     } // end fillList()
 
 
@@ -120,7 +102,18 @@ public class MainController {
      * Takes the data from the ObservableList, and populates the TableViews with the data.
      */
     public void countButtonAction() throws Exception {
-        Methods.getTopWordList(text);
+
+        try {
+            Database.clearTable(Main.conn);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        selection = choose.getSelectionModel().getSelectedIndex();
+        System.out.println("[MainController.countButtonAction()] Selection = " +
+                filesInDatabase.get(selection).getName());
+        String selectionText = filesInDatabase.get(selection).getContent();
+        Methods.getTopWordList(selectionText);
         fillList();
         textColumnAll.setCellValueFactory(new PropertyValueFactory<Word, String>("text"));
         countColumnAll.setCellValueFactory(new PropertyValueFactory<Word, Integer>("count"));
@@ -133,13 +126,10 @@ public class MainController {
         textColumnTop20.setCellValueFactory(new PropertyValueFactory<Word, String>("text"));
         countColumnTop20.setCellValueFactory(new PropertyValueFactory<Word, Integer>("count"));
         occurrenceViewTop20.setItems(observableListTop20);
-        String temp = "";
-        if(usingSample) {
-            temp += "Results for " + sampleFile.getName() + "\n\n";
-        } else temp += "Results for " + newFile.getName() + "\n\n";
-        temp += getStats(observableList);
 
-        stats.setText(temp);
+        String results = getStats(observableList);
+
+        stats.setText(results);
     } // countButtonAction()
 
 
@@ -151,7 +141,6 @@ public class MainController {
     public void clearButtonAction() {
         observableList.clear();
         stats.setText("");
-        count.setDisable(true);
         occurrenceViewAll.getItems().clear();
         occurrenceViewTop20.getItems().clear();
         usingSample = false;
@@ -177,12 +166,14 @@ public class MainController {
         if(selectedFile != null){
             System.out.println("[Methods.newFileAction] Valid File selected");
         } else System.out.println("[Methods.newFileAction] Invalid File selected");
-        newFile = selectedFile;
+
         try {
-            loadNewFile();
-        } catch (FileNotFoundException e) {
+            Database.postFile(Main.conn, selectedFile);
+        } catch (Exception e) {
             e.printStackTrace();
         }
+
+        initialize();
     } // end newFileAction()
 
 
@@ -193,6 +184,9 @@ public class MainController {
      */
     public static String getStats( ObservableList<Word> list){
         String result = "";
+
+        result += "Results for " + filesInDatabase.get(selection).getName() + "\n\n";
+
 
         int wordCount = 0;
         int unique = list.size();

@@ -82,7 +82,7 @@ public class Methods {
 		}
 
 		for(Word w: words)
-			Database.post(Main.conn, w);
+			Database.postWord(Main.conn, w);
 
 		System.out.println("[Methods.getTopWordList()] List of Words successfully " +
 				"transferred to Database.");
@@ -91,21 +91,26 @@ public class Methods {
 
 
 	/**
-	 * Prints out the top 20 Words with the highest counts, followed by the entire list.
-	 * @param list
+	 * This method is used to get rid of all special characters in a string
+	 * so that it can be sent over to the database without messing up
+	 * the query.
+	 * @param p
+	 * @return
 	 */
-	public static void printList(ArrayList<Word> list) {
-		System.out.println("\nTop 20...");
-		for (int i = 0; i < 20; i++) {
-			int temp = i + 1;
-			if (temp < 10)
-				System.out.println(" " + temp + ". " + list.get(i));
-			else
-				System.out.println(temp + ". " + list.get(i));
-		}
-		System.out.println("\nEntire List...");
-		for (Word w : list)
-			System.out.println(w);
-	} // end printList()
+	public static String prettyString(String p){
+		String result = "";
+
+		String[] temp = p.split("\\s+");
+
+		// Parsing the sentence
+		for (int i = 0; i < temp.length; i++)
+			temp[i] = temp[i].replaceAll("[^\\w]", "");
+
+		for (String s : temp)
+			result += s + " ";
+
+		System.out.println("[Methods.prettyString] Cleaned up your string!");
+		return result;
+	} //end prettyString()
 
 } // end Methods

@@ -3,6 +3,7 @@ package start;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.io.File;
 import java.sql.*;
 import java.util.Collections;
 
@@ -39,9 +40,11 @@ public class Database {
 
     /**
      * Inserts data into the "word" table in the database.
+     * @param conn
+     * @param w
      * @throws Exception
      */
-    public static void post(Connection conn, Word w) throws Exception{
+    public static void postWord(Connection conn, Word w) throws Exception{
         final String var1 = w.getText();
         final int var2 = w.count;
         try{
@@ -57,12 +60,33 @@ public class Database {
 
 
     /**
+     * Inserts data into the "file" table in the database.
+     * @param conn
+     * @param file
+     * @throws Exception
+     */
+    public static void postFile(Connection conn, File file) throws Exception{
+        final String var1 = file.getName();
+        final String var2 = Methods.prettyString(Methods.getTextFromFile(file));
+        try{
+            //Creating Query
+            PreparedStatement posted = conn.prepareStatement("INSERT INTO file (file_name,file_content) " +
+                    "VALUE ('"+var1+"', '"+var2+"')");
+            //Executing Query
+            posted.executeUpdate();
+            System.out.println("[Database.postFile] Successfully uploaded " + var1 + " to database.");
+        }catch (Exception e){
+            System.out.println("[Database.postFile] Unable to upload " + var1 + " to database.");
+        }
+    } // end post()
+
+    /**
      * Retrieves all words and counts from the database, and puts them into an Observable List
      * that will be presented in the GUI.
      * @param conn
      * @return ObservableList<Word>
      */
-    public static ObservableList<Word> read(Connection conn){
+    public static ObservableList<Word> readWords(Connection conn){
         ObservableList<Word> list = FXCollections.observableArrayList();
         try{
             //Creating Query
@@ -81,7 +105,40 @@ public class Database {
         }catch (Exception e){
             System.out.println(e);
         } finally {
-            System.out.println("[Database.read()] Data successfully retrieved from database.");
+            System.out.println("[Database.read()] Words successfully retrieved from database.");
+        }
+
+        return list;
+    } // end read()
+
+    /**
+     * Retrieves all Text files from the database, and puts them into an Observable List
+     * that will be presented in the GUI.
+     * @param conn
+     * @return ObservableList<Word>
+     */
+    public static ObservableList<TextFile> readFiles(Connection conn){
+        ObservableList<TextFile> list = FXCollections.observableArrayList();
+        try{
+            //Creating Query
+            PreparedStatement statement = conn.prepareStatement("SELECT file_name,file_content FROM file");
+            //Executing Query
+            ResultSet result = statement.executeQuery();
+
+            int cnt = 0;
+            while (result.next()){
+                TextFile tf = new TextFile(result.getString("file_name"), result.getString("file_content"));
+                list.add(tf);
+                cnt++;
+            }
+
+            //Sorting the Observable List
+            Collections.sort(list, Collections.reverseOrder());
+
+            System.out.println("[Database.read()] " + cnt + " TextFile(s) successfully retrieved from database.");
+
+        }catch (Exception e){
+            System.out.println(e);
         }
 
         return list;
@@ -89,7 +146,8 @@ public class Database {
 
 
     /**
-     * Clears the "word" table in the database.
+     * Used to clear all records in the word table.
+     * @param conn
      * @throws Exception
      */
     public static void clearTable(Connection conn) throws Exception {
@@ -105,6 +163,27 @@ public class Database {
         stmt.executeUpdate(sql);
 
         System.out.println("[Database.clearTable] Successfully flushed word table.");
+
+    } // end clearTable()
+
+    /**
+     * Used to clear all records in the file table.
+     * @param conn
+     * @throws Exception
+     */
+    public static void clearFiles(Connection conn) throws Exception {
+        Statement stmt = conn.createStatement();
+
+        // Use TRUNCATE
+        String sql = "TRUNCATE file";
+        // Execute deletion
+        stmt.executeUpdate(sql);
+        // Use DELETE
+        sql = "DELETE FROM file";
+        // Execute deletion
+        stmt.executeUpdate(sql);
+
+        System.out.println("[Database.clearFile] Successfully cleared all files from database.");
 
     } // end clearTable()
 
