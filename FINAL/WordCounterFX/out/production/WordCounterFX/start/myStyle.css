@@ -1,0 +1,48 @@
+
+// CSS for TableView and TabPane
+
+.table-view{
+   -fx-font-size: 15.0px;
+}
+
+.table-view:focused{
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header{
+    -fx-background-color:  rgb(170, 181, 191);
+    -fx-text-fill: black;
+    -fx-border-color: black;
+
+}
+
+.table-view .table-cell{
+    -fx-text-fill: black;
+    -fx-border-color:  rgb(134, 142, 156);
+}
+
+.table-row-cell{
+    -fx-background-color: -fx-table-cell-border-color,  rgb(213, 220, 227);
+    -fx-alignment: CENTER;
+}
+
+.table-row-cell:odd{
+    -fx-background-color: -fx-table-cell-border-color, rgb(170, 181, 191);
+-fx-alignment: CENTER;
+}
+
+.tab-pane{
+-fx-tab-min-height: 2em; /* 24 */
+-fx-tab-max-height: 2em; /* 24 */
+}
+
+.tab{
+-fx-skin: "com.sun.javafx.scene.control.skin.LabelSkin";
+-fx-background-color:  rgb(213, 220, 227);
+-fx-alignment: CENTER;
+-fx-text-fill: -fx-text-base-color;
+}
+
+.tab-pane *.tab-header-background{
+-fx-background-color: rgb(54, 72, 99);
+}
